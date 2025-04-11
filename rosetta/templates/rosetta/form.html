@@ -41,6 +41,7 @@
         <li {% if rosetta_i18n_filter == 'untranslated' %}class="active"{% endif %}><a href="?{{ filter_query_string_base }}&amp;msg_filter=untranslated">{% trans "Untranslated only" %}</a></li>
         <li {% if rosetta_i18n_filter == 'translated' %}class="active"{% endif %}><a href="?{{ filter_query_string_base }}&amp;msg_filter=translated">{% trans "Translated only" %}</a></li>
         <li {% if rosetta_i18n_filter == 'fuzzy' %}class="active"{% endif %}><a href="?{{ filter_query_string_base }}&amp;msg_filter=fuzzy">{% trans "Fuzzy only" %}</a></li>
+        <li {% if rosetta_i18n_filter == 'ai' %}class="active"{% endif %}><a href="?{{ filter_query_string_base }}&amp;msg_filter=ai">{% trans "AI only" %}</a></li>
         <li {% if rosetta_i18n_filter == 'all' %}class="active"{% endif %}><a href="?{{ filter_query_string_base }}&amp;msg_filter=all">{% trans "All" %}</a></li>
     </ul>
     <div id="changelist" class="module{% if rosetta_i18n_lang_bidi %} rtl{% endif %}">
@@ -76,6 +77,7 @@
                         {% if main_language %}<th>{{ main_language }}</th>{% endif %}
                         <th>{{ rosetta_i18n_lang_name }}</th>
                         <th class="info-tip c" title="{% trans "Fuzzy entries call for revision by the translator." %}"><input style="display: inline;" id="action-toggle" type="checkbox"> {% trans "Fuzzy" %}</th>
+                        <th class="info-tip c" title="{% trans "AI entries call for revision by the translator." %}"><input style="display: inline;" id="action-toggle" type="checkbox"> {% trans "AI" %}</th>
                         {% if rosetta_settings.SHOW_OCCURRENCES %}<th>{% trans "Occurrences(s)" %}</th>{% endif %}
                     </tr>
                 </thead>
@@ -111,6 +113,9 @@
                         {% endif %}
                             <td class="c">
                                 <input type="checkbox" name="f_{{message.md5hash}}" value="1" {% if message|is_fuzzy %}checked="checked"{% endif %} />
+                            </td>
+                            <td class="c-ai">
+                                <input type="checkbox" name="a_{{message.md5hash}}" value="1" {% if message|is_ai %}checked="checked"{% endif %} />
                             </td>
                             {% if rosetta_settings.SHOW_OCCURRENCES %}
                             <td class="location">

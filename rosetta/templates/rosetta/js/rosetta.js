@@ -171,4 +171,14 @@ $(document).ready(function() {
         });
     });
 
+    $('#action-toggle-ai').change(function(){
+        jQuery('tbody td.c-ai input[type="checkbox"]').each(function(i, e) {
+            if($('#action-toggle-ai').is(':checked')) {
+                $(e).attr('checked', 'checked');
+            } else {
+                $(e).removeAttr('checked');
+            }
+        });
+    });
+
 });

@@ -33,6 +33,7 @@
                                 <th class="r">{% trans "Messages" %}</th>
                                 <th class="r">{% trans "Translated" %}</th>
                                 <th class="info-tip r" title="{% trans "Fuzzy entries call for revision by the translator." %}">{% trans "Fuzzy" %}</th>
+                                <th class="info-tip r" title="{% trans "AI entries call for revision by the translator." %}">{% trans "AI"%}</th>
                                 <th class="r">{% trans "Obsolete" %}</th>
                                 <th>{% trans "File" %}</th>
                             </tr>
@@ -47,6 +48,7 @@
                                     {% endwith %}
                                     <td class="ch-translated r">{{ po.translated_entries|length }}</td>
                                     <td class="ch-fuzzy r">{{ po.fuzzy_entries|length }}</td>
+                                    <td class="ch-fuzzy r">{{po.ai_entries|length}}</td>
                                     <td class="ch-obsolete r">{{ po.obsolete_entries|length }}</td>
                                     <td class="hint">{{ path }}</td>
                                 </tr>

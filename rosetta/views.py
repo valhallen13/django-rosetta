@@ -328,16 +328,23 @@ class TranslationFormView(RosettaFileLevelMixin, TemplateView):
                         entry.msgstr = self.fix_nls(entry.msgid, new_msgstr)
 
                     is_fuzzy = bool(self.request.POST.get("f_%s" % md5hash, False))
+                    is_ai = bool(self.request.POST.get('a_%s' % md5hash, False))
                     old_fuzzy = "fuzzy" in entry.flags
+                    old_ai = 'ai' in entry.flags
 
                     if old_fuzzy and not is_fuzzy:
                         entry.flags.remove("fuzzy")
                     elif not old_fuzzy and is_fuzzy:
                         entry.flags.append("fuzzy")
 
+                    if old_ai and not is_ai:
+                        entry.flags.remove('ai')
+                    elif not old_ai and is_ai:
+                        entry.flags.append('ai')
+
                     file_change = True
 
-                    if old_msgstr != new_msgstr or old_fuzzy != is_fuzzy:
+                    if old_msgstr != new_msgstr or old_fuzzy != is_fuzzy or old_ai != is_ai:
                         entry_changed.send(
                             sender=entry,
                             user=request.user,
@@ -612,7 +619,7 @@ class TranslationFormView(RosettaFileLevelMixin, TemplateView):
             msg_filter = None
         else:
             msg_filter = self._request_request("msg_filter", "all")
-            available_msg_filters = {"untranslated", "translated", "fuzzy", "all"}
+            available_msg_filters = {"untranslated", "translated", "fuzzy", "ai", "all"}
             if msg_filter not in available_msg_filters:
                 msg_filter = "all"
         return msg_filter
@@ -657,6 +664,8 @@ class TranslationFormView(RosettaFileLevelMixin, TemplateView):
                 entries = self.po_file.translated_entries()
             elif self.msg_filter == "fuzzy":
                 entries = [e_ for e_ in self.po_file.fuzzy_entries() if not e_.obsolete]
+            elif self.msg_filter == 'ai':
+                entries = [e_ for e_ in self.po_file.ai_entries() if not e_.obsolete]
             else:
                 # ("all")
                 entries = [e_ for e_ in self.po_file if not e_.obsolete]

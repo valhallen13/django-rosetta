@@ -203,6 +203,12 @@ document.addEventListener("DOMContentLoaded", () => {
         checkboxes.forEach((checkbox) => (checkbox.checked = this.checked));
     });
 
+    // Toggle ai state for all entries on the current page
+    document.getElementById("action-toggle-ai")?.addEventListener("change", function () {
+        const checkboxes = document.querySelectorAll('tbody td.c-ai input[type="checkbox"]');
+        checkboxes.forEach((checkbox) => (checkbox.checked = this.checked));
+    });
+
     // Toggle additional locations that are initially hidden
     document.querySelectorAll(".location a").forEach((link) => {
         link.addEventListener("click", (event) => {

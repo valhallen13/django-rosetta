@@ -84,4 +84,9 @@ def is_fuzzy(message):
     return message and hasattr(message, "flags") and "fuzzy" in message.flags
 
 
+def is_ai(message):
+    return message and hasattr(message, 'flags') and 'ai' in message.flags
+
+
 is_fuzzy = register.filter(is_fuzzy)
+is_ai = register.filter(is_ai)

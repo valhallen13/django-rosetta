@@ -62,9 +62,9 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        "Django >= 4.2",
+        "Django >= 3.2",
         "requests >= 2.30.0",
-        "polib >= 1.1.0",
+        "polib @ git+ssh://git@github.com:valhallen13/polib.git",
     ],
     tests_require=[
         "vcrpy",

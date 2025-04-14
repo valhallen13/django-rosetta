@@ -64,7 +64,7 @@ setup(
     ],
     include_package_data=True,
     zip_safe=False,
-    install_requires=["Django >= 2.2", "requests >= 2.1.0", "polib @ git+ssh://git@github.com:valhallen13/polib.git"],
+    install_requires=["Django >= 2.2", "requests >= 2.1.0", "polib @ git+https://github.com/valhallen13/polib.git@master"],
     tests_require=["tox", "vcrpy"],
     cmdclass={"test": Tox},
 )
